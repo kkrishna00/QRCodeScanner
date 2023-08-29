@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -16,6 +17,7 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.stringsattached.qrcodescanner.databinding.FragmentHomeBinding
+import kotlin.math.max
 
 class HomeFragment : Fragment() {
 
@@ -48,9 +50,36 @@ class HomeFragment : Fragment() {
         ) {
             askForCameraPermission()
         } else {
+            setupZoomButtons()
             setupQRCodeScanner()
         }
     }
+
+    private fun setupZoomButtons() {
+        binding.zoomControls.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                codeScanner.zoom = binding.zoomControls.progress
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+                // no - op
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                // no - op
+            }
+        })
+        binding.zoomAdd.setOnClickListener {
+            binding.zoomControls.progress = (binding.zoomControls.progress / 10) * 10 + 10
+            codeScanner.zoom = binding.zoomControls.progress
+        }
+
+        binding.zoomRemove.setOnClickListener {
+            binding.zoomControls.progress = max(0, (binding.zoomControls.progress / 10) * 10 - 10)
+            codeScanner.zoom = binding.zoomControls.progress
+        }
+    }
+
 
     private fun setupQRCodeScanner() {
         val scannerView = binding.scannerView
