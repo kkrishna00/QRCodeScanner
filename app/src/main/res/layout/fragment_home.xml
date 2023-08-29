@@ -19,7 +19,7 @@
         app:frameColor="@android:color/white"
         app:frameCornersRadius="8dp"
         app:frameCornersSize="50dp"
-        app:frameSize="0.75"
+        app:frameSize="0.4"
         app:frameThickness="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,24 +79,27 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/galleryActionContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:background="#0000000"
+            android:background="#00000000"
             android:src="@drawable/baseline_image_24" />
 
         <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/cameraRotationAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:background="#0000000"
+            android:background="#00000000"
             android:src="@drawable/baseline_flip_camera_24" />
 
         <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/batchAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:background="#0000000"
+            android:background="#00000000"
             android:src="@drawable/baseline_all_inclusive_24" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>

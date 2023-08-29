@@ -51,7 +51,29 @@ class HomeFragment : Fragment() {
             askForCameraPermission()
         } else {
             setupZoomButtons()
+            setupCameraRotationButton()
+            setupBatchButton()
             setupQRCodeScanner()
+        }
+    }
+
+    private fun setupBatchButton() {
+        binding.batchAction.setOnClickListener {
+            if (codeScanner.scanMode == ScanMode.SINGLE) {
+                codeScanner.scanMode = ScanMode.CONTINUOUS
+            } else {
+                codeScanner.scanMode = ScanMode.SINGLE
+            }
+        }
+    }
+
+    private fun setupCameraRotationButton() {
+        binding.cameraRotationAction.setOnClickListener {
+            if (codeScanner.camera == CodeScanner.CAMERA_BACK) {
+                codeScanner.camera = CodeScanner.CAMERA_FRONT
+            } else {
+                codeScanner.camera = CodeScanner.CAMERA_BACK
+            }
         }
     }
 
@@ -86,11 +108,11 @@ class HomeFragment : Fragment() {
 
         codeScanner = CodeScanner(requireContext(), scannerView)
 
-        codeScanner.camera = CodeScanner.CAMERA_BACK // or CAMERA_FRONT or specific camera id
+        codeScanner.camera = CodeScanner.CAMERA_FRONT // or CAMERA_FRONT or specific camera id
         codeScanner.formats = CodeScanner.ALL_FORMATS // list of type BarcodeFormat,
         // ex. listOf(BarcodeFormat.QR_CODE)
         codeScanner.autoFocusMode = AutoFocusMode.SAFE // or CONTINUOUS
-        codeScanner.scanMode = ScanMode.CONTINUOUS // or CONTINUOUS or PREVIEW
+        codeScanner.scanMode = ScanMode.SINGLE // or CONTINUOUS or PREVIEW
         codeScanner.isAutoFocusEnabled = true // Whether to enable auto focus or not
         codeScanner.isFlashEnabled = false // Whether to enable flash or not
 
